@@ -49,8 +49,8 @@ export default function Home() {
                 <input type="number" step="0.1" min="0.0" name="hourly" id="id_hourly"></input>
               </div>
 
-              <div className="flex flex-col items-center p-2 w-1/4">
-                <button className="px-20 py-8 bg-green-500" name="" id="id_">
+              <div className="flex flex-col items-center p-2 w-1/4 cursor-pointer">
+                <button className="px-20 py-8 bg-green-500">
                   Create
                 </button>
               </div>   
