@@ -32,25 +32,27 @@ export default function Home() {
               <input type="text" name="location" id="id_location" className="flex-auto pl-1 "/>
             </div>
 
-            <div className="flex flex-row p-4 items-center justify-evenly text-center">
+            <div className="flex flex-row p-4 w-full items-center justify-evenly text-center">
 
-              <div className="flex flex-col p-2 ">
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
                 <label>Minimum Customers per Hour</label>
                 <input type="number" min="0" name="min_cust" id="id_min_cust"></input>
               </div>
 
-              <div className="flex flex-col items-center p-2">
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
                 <label>Maximum Customers per Hour</label>
                 <input type="number" min="1" name="max_cust" id="id_max_cust"></input>
               </div>
 
-              <div className="flex flex-col items-center p-2">
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
                 <label>Average Cookies per Sale</label>
                 <input type="number" step="0.1" min="0.0" name="hourly" id="id_hourly"></input>
               </div>
 
-              <div>
-                <button className="px-20 py-8 bg-green-500" name="" id="id_">Create</button>
+              <div className="flex flex-col items-center p-2 w-1/4">
+                <button className="px-20 py-8 bg-green-500" name="" id="id_">
+                  Create
+                </button>
               </div>   
               
             </div>
