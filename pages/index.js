@@ -28,6 +28,14 @@ export default function Home() {
 
   }
 
+  function getLatestCookieStand() {
+    if (cookieStands.length === 0) {
+      return 'Create a cookie stand'
+    }
+    return cookieStands[cookieStands.length - 1];
+
+  }
+
   return (
     <>
 
@@ -85,7 +93,7 @@ export default function Home() {
         </form>
 
         <div className="text-xl p-10">
-          <p>Report Table Coming Soon...</p>
+          <p>{getLatestCookieStand()}</p>
         </div>
 
       </main>
