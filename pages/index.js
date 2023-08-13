@@ -1,10 +1,33 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Head from 'next/head';
+import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [cookieStands, setCookieStands] = useState([]);
+  
+  function createCookieStandHandler(event) {
+    event.preventDefault();
+
+    const location = event.target.location.value;
+    const min_cust = event.target.min_cust.value;
+    const max_cust = event.target.max_cust.value;
+    const hourly = event.target.hourly.value;
+
+    // console.log('Location:', location);
+    // console.log('Minimum Customers per Hour:', min_cust);
+    // console.log('Maximum Customers per Hour:', max_cust);
+    // console.log('Average Cookies per Sale:', hourly);
+
+    // console.log("cookieStands is: ", cookieStands);
+    setCookieStands([...cookieStands, location]);
+    console.log("cookieStands is: ", cookieStands);
+    // alert(location);
+
+  }
+
   return (
     <>
 
@@ -19,7 +42,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center justify-center font-sans text-black p-5">
 
-        <form className="flex flex-col items-center justify-evenly w-3/4 p-2 my-4 bg-green-300 rounded-lg">
+        <form onSubmit={createCookieStandHandler} className="flex flex-col items-center justify-evenly w-3/4 p-2 my-4 bg-green-300 rounded-lg">
 
           <div className="flex items-center justify-center text-3xl p-4">
               Create Cookie Stand
@@ -32,7 +55,7 @@ export default function Home() {
               <input type="text" name="location" id="id_location" className="flex-auto pl-1 "/>
             </div>
 
-            <div className="flex flex-row p-4 w-full items-center justify-evenly text-center">
+            <div className="flex flex-row p-4 w-full justify-evenly text-center">
 
               <div className="flex flex-col align-center items-center p-2 w-1/4">
                 <label>Minimum Customers per Hour</label>
@@ -50,7 +73,7 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col items-center p-2 w-1/4 cursor-pointer">
-                <button className="px-20 py-8 bg-green-500">
+                <button name="createCookieStand" className="px-20 py-8 bg-green-500">
                   Create
                 </button>
               </div>   
