@@ -1,118 +1,134 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Head from 'next/head';
+import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [cookieStands, setCookieStands] = useState([]);
+  
+  function createCookieStandHandler(event) {
+    event.preventDefault();
+
+    const cookieStand = {
+      location: event.target.location.value,
+      min_cust: event.target.min_cust.value,
+      max_cust: event.target.max_cust.value,
+      hourly: event.target.hourly.value,
+      id: cookieStands.length
+    };
+
+    setCookieStands([...cookieStands, cookieStand]);
+  }
+
+  function getLatestCookieStand() {
+    if (cookieStands.length === 0) {
+      return 'Create a cookie stand...'
+    }
+    return `You just added the ${cookieStands[cookieStands.length - 1].location} cookie stand`;
+  }
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+
+      <Head>
+        <title>Cookie Stand Admin</title>
+      </Head>
+
+      <header className="flex items-center justify-between bg-green-500 text-black text-4xl font-sans font-semibold p-5">
+        <p>Cookie Stand Admin</p>
+        {cookieStands.length === 1 &&
+          <p>{cookieStands.length} location added</p>
+        }
+        {cookieStands.length > 1 &&
+          <p>{cookieStands.length} locations added</p>
+        }
+      </header>
+
+      <main className="flex flex-col items-center justify-center font-sans text-black p-5">
+
+        <form onSubmit={createCookieStandHandler} className="flex flex-col items-center justify-evenly w-3/4 p-2 my-4 bg-green-300 rounded-lg">
+
+          <div className="flex items-center justify-center text-3xl p-4">
+              Create Cookie Stand
+          </div>
+
+          <div className="flex items-center flex-col w-full p-2 text-xl">
+
+            <div className="flex items-center flex-row w-full">
+              <label className="flex p-2">Location</label>
+              <input type="text" name="location" id="id_location"  className="flex-auto pl-1 "/>
+            </div>
+
+            <div className="flex flex-row p-4 w-full justify-evenly text-center">
+
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
+                <label>Minimum Customers per Hour</label>
+                <input type="number" min="0" name="min_cust" id="id_min_cust"></input>
+              </div>
+
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
+                <label>Maximum Customers per Hour</label>
+                <input type="number" min="1" name="max_cust" id="id_max_cust"></input>
+              </div>
+
+              <div className="flex flex-col align-center items-center p-2 w-1/4">
+                <label>Average Cookies per Sale</label>
+                <input type="number" step="0.1" min="0.0" name="hourly" id="id_hourly"></input>
+              </div>
+
+              <div className="flex flex-col items-center p-2 w-1/4 cursor-pointer">
+                <button name="createCookieStand" className="px-20 py-8 bg-green-500">
+                  Create
+                </button>
+              </div>   
+              
+            </div>
+
+          </div>
+
+        </form>
+
+        <div className="text-xl p-10">
+          <p>{getLatestCookieStand()}</p>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        
+        {cookieStands.length > 0 && 
+          <table className="w-1/2 mx-auto my-4 border border-collapse border-slate-500">
+            <thead>
+              <tr>
+                <th className="border border-slate-500">id</th>
+                <th className="border border-slate-500">Location</th>
+                <th className="border border-slate-500">Min Custs/Hr</th>
+                <th className="border border-slate-500">Max Custs/Hr</th>
+                <th className="border border-slate-500">Avg Cookies Sold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cookieStands.map((stand) => {
+                  return (
+                    <tr key={stand.id}>
+                      <td className="text-center border border-slate-500">{stand.id}</td>
+                      <td className="pl-2 border border-slate-500">{stand.location}</td>
+                      <td className="text-center border border-slate-500">{stand.min_cust}</td>
+                      <td className="text-center border border-slate-500">{stand.max_cust}</td>
+                      <td className="text-center border border-slate-500">{stand.hourly}</td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </table>
+        }
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+      </main>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+      <footer className="flex items-center justify-between bg-green-500 text-black p-5">
+        <p>&copy;2023</p>
+      </footer>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </>
+  );
 }
