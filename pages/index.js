@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Head from 'next/head';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -94,7 +95,6 @@ export default function Home() {
           <p>{getLatestCookieStand()}</p>
         </div>
 
-        
         {cookieStands.length > 0 && 
           <table className="w-1/2 mx-auto my-4 border border-collapse border-slate-500">
             <thead>
@@ -127,6 +127,9 @@ export default function Home() {
 
       <footer className="flex items-center justify-between bg-green-500 text-black p-5">
         <p>&copy;2023</p>
+        <Link href="/careers">
+          Careers
+        </Link>
       </footer>
 
     </>

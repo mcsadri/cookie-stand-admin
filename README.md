@@ -29,6 +29,13 @@ Create a Cookie Stand Admin app using Next.js and style using Tailwind CSS.
   - [X] Won’t break if they get left in, but a good practice to remove stuff you’re not using.
 - [ ] Pro tip: [Tailwind CSS Extension Pack](https://marketplace.visualstudio.com/items?itemName=andrewmcodes.tailwindcss-extension-pack)
 
+## Stretch Goals
+
+- [ ] Refactor to move components to own functions.
+- [ ] Refactor to move components to own files.
+- [ ] Add more styling
+- [X] Link to another page within the app
+
 ## Tests
 
 - [X] n/a
