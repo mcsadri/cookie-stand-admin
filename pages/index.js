@@ -11,29 +11,24 @@ export default function Home() {
   function createCookieStandHandler(event) {
     event.preventDefault();
 
-    const location = event.target.location.value;
-    const min_cust = event.target.min_cust.value;
-    const max_cust = event.target.max_cust.value;
-    const hourly = event.target.hourly.value;
+    const cookieStand = {
+      location: event.target.location.value,
+      min_cust: event.target.min_cust.value,
+      max_cust: event.target.max_cust.value,
+      hourly: event.target.hourly.value,
+      id: cookieStands.length
+    };
 
-    // console.log('Location:', location);
-    // console.log('Minimum Customers per Hour:', min_cust);
-    // console.log('Maximum Customers per Hour:', max_cust);
-    // console.log('Average Cookies per Sale:', hourly);
-
+    setCookieStands([...cookieStands, cookieStand]);
     // console.log("cookieStands is: ", cookieStands);
-    setCookieStands([...cookieStands, location]);
-    console.log("cookieStands is: ", cookieStands);
-    // alert(location);
 
   }
 
   function getLatestCookieStand() {
     if (cookieStands.length === 0) {
-      return 'Create a cookie stand'
+      return 'Create a cookie stand...'
     }
-    return cookieStands[cookieStands.length - 1];
-
+    return `You just added the ${cookieStands[cookieStands.length - 1].location} cookie stand`;
   }
 
   return (
@@ -95,6 +90,40 @@ export default function Home() {
         <div className="text-xl p-10">
           <p>{getLatestCookieStand()}</p>
         </div>
+
+        {cookieStands.length > 0 && 
+          <table className="w-1/2 mx-auto my-4 border border-collapse border-slate-500">
+
+            <thead>
+              <tr>
+                <th className="border border-slate-500">id</th>
+                <th className="border border-slate-500">Location</th>
+                <th className="border border-slate-500">Min Custs/Hr</th>
+                <th className="border border-slate-500">Max Custs/Hr</th>
+                <th className="border border-slate-500">Avg Cookies Sold</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {cookieStands.map((stand) => {
+                  return (
+                    <tr key={stand.id}>
+                      <td className="text-center border border-slate-500">{stand.id}</td>
+                      <td className="pl-2 border border-slate-500">{stand.location}</td>
+                      <td className="text-center border border-slate-500">{stand.min_cust}</td>
+                      <td className="text-center border border-slate-500">{stand.max_cust}</td>
+                      <td className="text-center border border-slate-500">{stand.hourly}</td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+
+            <tfoot>
+            </tfoot>
+
+          </table>
+        }
 
       </main>
 
