@@ -13,7 +13,7 @@ Create a Cookie Stand Admin app using Next.js and style using Tailwind CSS.
 - [X] `pages/Index.js` should…
   - [X] Have `<Head>` component with page title set to `Cookie Stand Admin`
   - [X] Have a `<header>` component that matches spec.
-  - [ ] Have a `<main>` component containing `<form>` and a placeholder component showing JSON string of last created Cookie Stand.
+  - [X] Have a `<main>` component containing `<form>` and a placeholder component showing JSON string of last created Cookie Stand.
   - [X] Have a `<footer>` component that matches spec.
 - [X] Style app using TailwindCSS utility classes.
 
@@ -35,4 +35,13 @@ Create a Cookie Stand Admin app using Next.js and style using Tailwind CSS.
 
 ## Set-up
 
-- tbd
+- In terminal (assumes git & npm are previously installed):
+  - Clone repo from GitHub:
+    - $ ```git clone https://github.com/mcsadri/cookie-stand-admin.git```
+  - Change directory to new local repo:
+    - $ ```cd cookie-stand-admin```
+  - Start dev web server:
+    - $ ```npm run dev```
+- In browser:
+  - go to web page:
+    - ```http://localhost:3000/```

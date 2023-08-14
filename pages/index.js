@@ -20,8 +20,6 @@ export default function Home() {
     };
 
     setCookieStands([...cookieStands, cookieStand]);
-    // console.log("cookieStands is: ", cookieStands);
-
   }
 
   function getLatestCookieStand() {
@@ -40,7 +38,12 @@ export default function Home() {
 
       <header className="flex items-center justify-between bg-green-500 text-black text-4xl font-sans font-semibold p-5">
         <p>Cookie Stand Admin</p>
-        <p>X locations added</p>
+        {cookieStands.length === 1 &&
+          <p>{cookieStands.length} location added</p>
+        }
+        {cookieStands.length > 1 &&
+          <p>{cookieStands.length} locations added</p>
+        }
       </header>
 
       <main className="flex flex-col items-center justify-center font-sans text-black p-5">
@@ -55,7 +58,7 @@ export default function Home() {
 
             <div className="flex items-center flex-row w-full">
               <label className="flex p-2">Location</label>
-              <input type="text" name="location" id="id_location" className="flex-auto pl-1 "/>
+              <input type="text" name="location" id="id_location"  className="flex-auto pl-1 "/>
             </div>
 
             <div className="flex flex-row p-4 w-full justify-evenly text-center">
@@ -91,9 +94,9 @@ export default function Home() {
           <p>{getLatestCookieStand()}</p>
         </div>
 
+        
         {cookieStands.length > 0 && 
           <table className="w-1/2 mx-auto my-4 border border-collapse border-slate-500">
-
             <thead>
               <tr>
                 <th className="border border-slate-500">id</th>
@@ -103,7 +106,6 @@ export default function Home() {
                 <th className="border border-slate-500">Avg Cookies Sold</th>
               </tr>
             </thead>
-
             <tbody>
               {cookieStands.map((stand) => {
                   return (
@@ -118,10 +120,6 @@ export default function Home() {
                 })
               }
             </tbody>
-
-            <tfoot>
-            </tfoot>
-
           </table>
         }
 
